@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: API-Gateway
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      routes:
+        - id: BOOKING-SERVICE
+          uri: lb://BOOKING-SERVICE
+          predicates:
+            - Path=/hotel/**
+        - id: PAYMENT-SERVICE
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/payment/**
+server:
+  port: 9191
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
